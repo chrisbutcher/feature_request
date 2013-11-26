@@ -7,7 +7,7 @@ a difference on how database will get torn down and stuff like that.
 
 I've included DatabaseCleaner gem to help with cleaning up your database after tests if you plan on writing tests. From
 the documentation it's easy as
-'''
+```
 def setup
     DatabaseCleaner.start
 end
@@ -15,7 +15,7 @@ end
 def teardown
     DatabaseCleaner.clean
 end
-'''
+```
 
 I've also added a sample model Book which you can delete. You can use this model to make sure you can hit your mongodb
 by using it in your Rails console. You can delete the related files once you are happy with your setup.
