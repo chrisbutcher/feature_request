@@ -7,7 +7,8 @@ a difference on how database will get torn down and stuff like that.
 
 I've included DatabaseCleaner gem to help with cleaning up your database after tests if you plan on writing tests. From
 the documentation it's easy as
-```
+
+```ruby
 def setup
     DatabaseCleaner.start
 end
