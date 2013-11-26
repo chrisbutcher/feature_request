@@ -19,6 +19,12 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :test do
+  gem 'database_cleaner', '~> 1.2.0'
+  gem 'minitest', '~> 4.7.5'
+  gem 'minitest-reporters', '~> 0.14.0'
+end
+
 gem 'jquery-rails'
 gem 'mongoid', '~> 3.0.0'
 
