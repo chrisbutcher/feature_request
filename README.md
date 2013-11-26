@@ -27,3 +27,4 @@ If there are any problems please let me know and we can modify the base project.
  * [Installing Mongo](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
  * [Mongoid Reference](http://mongoid.org/en/mongoid/index.html)
  * [DatabaseCleaner Gem](https://github.com/bmabey/database_cleaner)
+ * [Faker Gem](https://github.com/stympy/faker): Fake data generation

@@ -25,6 +25,10 @@ group :test do
   gem 'minitest-reporters', '~> 0.14.0'
 end
 
+group :development, :test do
+  gem 'faker', '~> 1.2.0'
+end
+
 gem 'jquery-rails'
 gem 'mongoid', '~> 3.0.0'
 
