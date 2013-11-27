@@ -1,15 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  title: MyString
-  text: MyString
-  author: MyString
-  date: 2013-11-27 11:55:49
-  priority: 1
-
-two:
-  title: MyString
-  text: MyString
-  author: MyString
-  date: 2013-11-27 11:55:49
-  priority: 1
+#
+#one:
+#  title: 'Redis crashes randomly'
+#  text: 'If multiple people click on Network view at the same time, Redis crashes'
+#  author: 'Mova'
+#  date: 2013-11-27 11:53:49
+#  priority: 1
+#  is_complete: false
+#
+#two:
+#  title: 'Ability to search by independent words'
+#  text: 'Ability to search by independent words as well as full sentence strings'
+#  author: 'MOva'
+#  date: 2013-11-27 11:55:49
+#  priority: 2
+#  is_complete: false

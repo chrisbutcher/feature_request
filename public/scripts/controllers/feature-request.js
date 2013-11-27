@@ -144,7 +144,6 @@ angular.module('FeatureRequestApp')
         function commitCompleteRequest(isComplete) {
             $http.put("/requests/" + $scope.selectedRequest._id, { "is_complete": isComplete }).then(function(){
                 $scope.selectedRequest.is_complete = isComplete;
-                $scope.selectedRequest.priority = findMaxPriority() + 1;
             },function(error){
                 alert(error);
             })

@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  text: MyString
-  author: MyString
-  date: 2013-11-27 12:06:18
-
-two:
-  text: MyString
-  author: MyString
-  date: 2013-11-27 12:06:18
+#
+#one:
+#  text: MyString
+#  author: MyString
+#  date: 2013-11-27 12:06:18
+#
+#two:
+#  text: MyString
+#  author: MyString
+#  date: 2013-11-27 12:06:18
