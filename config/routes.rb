@@ -7,9 +7,12 @@ MongoPlatform::Application.routes.draw do
   #
   #end
 
-  get 'requests' => 'requests#index', :defaults => { :format => 'json' }
+  resources :requests, :defaults => { :format => 'json' } do
+    post 'comment' => 'requests#add_comment', :defaults => { :format => 'json' }
+  end
 
   get 'test' => 'requests#test'
+  get 'reset' => 'requests#reset'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

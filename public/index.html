@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap-sass/bootstrap-responsive-2.3.2.min.css" media="screen">
 
     <script src="bower_components/jquery/jquery.min.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
 
@@ -33,7 +33,14 @@
             width:100%;
         }
         .request-title-btn {
-             width:500px;
+             width:400px;
+        }
+
+        .request-done-true {
+          color: #ccc;
+        }
+
+        .request-done-false {
         }
 
     </style>
@@ -42,30 +49,29 @@
 
 <div ng-controller="FeatureRequestCtrl">
 
-    <div class="container-fluid">
-        <div class="row-fluid">
+    <div class="container">
+        <div class="row">
             <div class="span12">
                 <h2>{{appName}}</h2>
             </div>
         </div>
 
-        <div class="row-fluid">
-             <div class="span5">
+        <div class="row">
+             <div class="span6">
                  <button class="btn" style="float:left" ng-click="createNewRequest()"><i class="icon-large icon-plus-sign"></i> New Feature Request</button>
                  <br />
                  <br />
                  <div class="left-pane">
                      <div  class="request-list-item"  ng-repeat="request in requests" >
-                         <button class="btn request-down-btn" ng-click="deleteRequest($index)"><i class="icon-large icon-remove"></i></button>
-                         <button class="btn request-title-btn" ng-class="{'btn-primary':request == selectedRequest}" ng-click="selectRequest(request)" >{{request.title}}</button>
+                         <button class="btn request-down-btn" ng-click="deleteRequest(request, $index)"><i class="icon-large icon-remove"></i></button>
+                         <button class="btn request-title-btn request-done-{{request.is_complete}}" ng-class="{'btn-primary':request == selectedRequest}" ng-click="selectRequest(request)" >{{request.title}}{{doneDescription(request.is_complete)}}</button>
                          <button class="btn request-up-btn" ng-click="requestUp($index)"><i class="icon-large icon-arrow-up"></i></button>
                          <button class="btn request-down-btn" ng-click="requestDown($index)"><i class="icon-large icon-arrow-down"></i></button>
-
                      </div>
                  </div>
             </div>
-            <div class="span7">
-                <div class="right-pane">
+            <div class="span4">
+                <div class="right-pane panel">
                     <div class="newRequestDiv" ng-show="newRequest != null">
                         <label>Title:</label><input type="text" class="input-block-level" ng-model="newRequest.title"/>
                         <br />
@@ -77,8 +83,8 @@
                         <input type="button" class="btn" ng-click="cancelNewRequest()" value="Cancel" />
                     </div>
                     <div class="requestDetailsDiv" ng-show="selectedRequest != null && newRequest==null"  >
-                        <h2>{{selectedRequest.title}} </h2>
-                        <h6>{{selectedRequest.author}} {{selectedRequest.date | date:'yyyy-MM-dd HH:mm:ss'}}</h6>
+                        <h2>{{selectedRequest.title}} <button class="btn btn-success" ng-show="!(selectedRequest.is_complete)" ng-click="completeRequest(true)"><i class="icon-large icon-thumbs-up"></i> Complete Request</button><button class="btn btn-warning" ng-show="selectedRequest.is_complete"  ng-click="completeRequest(true)"><i class="icon-large icon-thumbs-down"></i> Open Request</button></h2>
+                        <h4>{{selectedRequest.author}} {{selectedRequest.date | date:'yyyy-MM-dd HH:mm:ss'}}</h4>
                         <p>{{selectedRequest.text}}</p>
                         <div class="commentsDiv">
                             <div ng-repeat="comment in selectedRequest.comments">
@@ -90,7 +96,7 @@
                                 <br />
                                 <label>Comment:</label><textarea ng-model="newComment.text" width="100%"></textarea>
                                 <br />
-                                <button ng-click="postNewComment()">Post Comment</button>
+                                <button ng-click="postNewComment()" class="btn btn-primary">Post Comment</button>
                                 <br />
                             </div>
                         </div>
