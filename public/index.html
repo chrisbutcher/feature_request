@@ -1,0 +1,112 @@
+<!doctype html>
+
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <title>Feature Request Manager</title>
+    <meta name="description" content="">
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="bower_components/bootstrap-sass/bootstrap-2.3.2.min.css" media="screen">
+    <link rel="stylesheet" href="bower_components/bootstrap-sass/bootstrap-responsive-2.3.2.min.css" media="screen">
+
+    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/feature-request.js"></script>
+
+    <style>
+        /*.container {*/
+            /*width:100%;*/
+            /*margin-left:10px;*/
+        /*}*/
+        /*.left-pane {*/
+            /*float:left;*/
+            /*width:600px;*/
+        /*}*/
+        /*.right-pane {*/
+            /*float:left;*/
+            /*margin-left:10px;*/
+        /*}*/
+        .request-list-item {
+            width:100%;
+        }
+        .request-title-btn {
+             width:500px;
+        }
+
+    </style>
+</head>
+<body ng-app="FeatureRequestApp">
+
+<div ng-controller="FeatureRequestCtrl">
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <h2>{{appName}}</h2>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+             <div class="span5">
+                 <button class="btn" style="float:left" ng-click="createNewRequest()"><i class="icon-large icon-plus-sign"></i> New Feature Request</button>
+                 <br />
+                 <br />
+                 <div class="left-pane">
+                     <div  class="request-list-item"  ng-repeat="request in requests" >
+                         <button class="btn request-down-btn" ng-click="deleteRequest($index)"><i class="icon-large icon-remove"></i></button>
+                         <button class="btn request-title-btn" ng-class="{'btn-primary':request == selectedRequest}" ng-click="selectRequest(request)" >{{request.title}}</button>
+                         <button class="btn request-up-btn" ng-click="requestUp($index)"><i class="icon-large icon-arrow-up"></i></button>
+                         <button class="btn request-down-btn" ng-click="requestDown($index)"><i class="icon-large icon-arrow-down"></i></button>
+
+                     </div>
+                 </div>
+            </div>
+            <div class="span7">
+                <div class="right-pane">
+                    <div class="newRequestDiv" ng-show="newRequest != null">
+                        <label>Title:</label><input type="text" class="input-block-level" ng-model="newRequest.title"/>
+                        <br />
+                        <label>Name:</label><input type="text" class="input-block-level" ng-model="newRequest.author"/>
+                        <br />
+                        <label>text:</label><textarea rows="10" class="input-block-level" ng-model="newRequest.text" width="100%"></textarea>
+                        <br />
+                        <input type="button" class="btn" ng-click="postNewRequest()" value="Submit" />
+                        <input type="button" class="btn" ng-click="cancelNewRequest()" value="Cancel" />
+                    </div>
+                    <div class="requestDetailsDiv" ng-show="selectedRequest != null && newRequest==null"  >
+                        <h2>{{selectedRequest.title}} </h2>
+                        <h6>{{selectedRequest.author}} {{selectedRequest.date | date:'yyyy-MM-dd HH:mm:ss'}}</h6>
+                        <p>{{selectedRequest.text}}</p>
+                        <div class="commentsDiv">
+                            <div ng-repeat="comment in selectedRequest.comments">
+                                <h6>{{comment.author}} {{comment.date | date:'yyyy-MM-dd HH:mm:ss'}}</h6>
+                                <p>{{comment.text}}</p>
+                            </div>
+                            <div class="newCommentDiv">
+                                <label>Name:</label><input type="text" ng-model="newComment.author"/>
+                                <br />
+                                <label>Comment:</label><textarea ng-model="newComment.text" width="100%"></textarea>
+                                <br />
+                                <button ng-click="postNewComment()">Post Comment</button>
+                                <br />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+</div>
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="bower_components/bootstrap-sass/bootstrap-2.3.2.min.css" media="screen">
+    <link rel="stylesheet" href="bower_components/bootstrap-sass/bootstrap-responsive-2.3.2.min.css" media="screen">
+    <link rel="stylesheet" href="styles/general.css" />
+    <link rel="stylesheet" href="styles/txconnect.css">
+    <!-- endbuild -->
+</head>
+
+<body ng-app="Tx.DocumentUploadQueueApp" class="tx whiteBody">
+<!-- fix this css, this is a temporary hack to push the content down low enough -->
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
+    today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better
+    experience this site.</p>
+<![endif]-->
+
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+<div ui-view></div>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    var _gaq = [
+        ['_setAccount', 'UA-XXXXX-X'],
+        ['_trackPageview']
+    ];
+    (function (d, t) {
+        var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        g.src = '//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g, s)
+    }(document, 'script'));
+</script>
+
+<script src="bower_components/bootstrap/assets/js/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
+
+<script src="scripts/app.js"></script>
+<script src="scripts/modules/helper.js"></script>
+<script src="scripts/services/configuration.js"></script>
+<script src="scripts/services/document-upload-queue.js"></script>
+<script type="text/javascript" src="/_layouts/15/init.js"></script>
+<script type="text/javascript" src="/_layouts/15/core.js"></script>
+
+<script src="scripts/controllers/feature-request.js"></script>
+<style type="text/css">
+    .isSelected { background-color: lightblue }
+</style>
+<div ng-controller="DocumentUploadQueueCtrl" id="tx-MainWrapper" >
+    <div>
+        <div class="osposting-item-div" style="width:100%"  ng-repeat="document in documentsInQueue">
+            <input type="button" style="width:100%" class="btn" ng-class="{'btn-primary':selectedDocumentId == document.id}" value="{{document.title}}" ng-click="selectDocument(document.id)" />
+            <div collapse="selectedDocumentId != document.id">
+                <table>
+                    <tr>
+                        <td width="40%">
+                        <ul>
+                            <li><span>User Name: {{document.userName}}</span></li>
+                            <li><span>Email: {{document.email}}</span></li>
+                            <li><span>Order Set Title: {{document.orderSetTitle}}</span></li>
+                            <li><span>Original Order Set Title: {{document.originalOrderSetTitle}}</span></li>
+                        </ul>
+                        </td>
+                        <td width="40%">
+                        <ul>
+                            <li><span>Keyword or Diagnosis: {{document.keywordOrDiagnosis}}</span></li>
+                            <li><span>Date and Version: {{document.dateAndVersion}}</span></li>
+                            <li><span>Adjusted Review Date: {{document.adjustedReviewDate}}</span></li>
+                            <li> <span>Word Version: {{document.wordVersion}}</span></li>
+                        </ul>
+                        </td>
+                        <td width="20%">
+                        <ul>
+                            <li><span>New: <input class="align-top" type="checkbox" checked="{{document.isNew}}" disabled /></span></li>
+                            <li><span>Modified: <input class="align-top" type="checkbox" checked="{{document.isModified}}" disabled /></span></li>
+                            <li><span>No Flag: <input class="align-top" type="checkbox" checked="{{document.isNoFlag}}" disabled /></span></li>
+                            <li><span>Retire: <input class="align-top" type="checkbox" checked="{{document.isRetire}}" disabled /></span></li>
+                        </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <select ng-model="locale" ng-options="localeOption for localeOption in localeOptions" >
+
+        </select>
+    </div>
+    <button type="button" ng-disabled="isWaitingForResponse || !selectedDocumentId" class="btn btn-primary" ng-click="commitUpload()">Save</button>
+    <img ng-show="isWaitingForResponse" src="images/ajax-loader.gif" />
+
+</div>
+</body>
