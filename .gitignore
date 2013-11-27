@@ -17,3 +17,5 @@
 # Ignore .idea folder
 # You should just re-import the project yourself
 /.idea
+
+Gemfile.lock
